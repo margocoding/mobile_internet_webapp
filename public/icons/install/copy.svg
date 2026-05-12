@@ -1,0 +1,30 @@
+<svg width="176" height="199" viewBox="0 0 176 199" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Transparent background -->
+
+  <!-- Circle -->
+  <circle cx="88" cy="99.5" r="78" fill="#D6E2EE"/>
+
+  <!-- Back square -->
+  <rect
+    x="52"
+    y="63"
+    width="54"
+    height="54"
+    rx="14"
+    stroke="#5E7CEB"
+    stroke-width="6"
+    fill="#D6E2EE"
+  />
+
+  <!-- Front square -->
+  <rect
+    x="70"
+    y="81"
+    width="54"
+    height="54"
+    rx="14"
+    stroke="#5E7CEB"
+    stroke-width="6"
+    fill="#D6E2EE"
+  />
+</svg>
