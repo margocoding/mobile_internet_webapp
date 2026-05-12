@@ -77,7 +77,7 @@ const OrderPage = () => {
                 />
 
                 <p className="text-[#333333] font-semibold">
-                  {tariff.gb || ""}
+                  {tariff.gb || "∞ GB"}
                 </p>
               </div>
 
