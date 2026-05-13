@@ -72,7 +72,7 @@ const WhyUs = ({
                 />
 
                 <div>
-                  <h2 className="text-lg font-bold max-md:text-base">
+                  <h2 className="text-lg font-semibold max-md:text-base">
                     {block.name}
                   </h2>
                   <p className="text-[#808080] max-md:text-sm">

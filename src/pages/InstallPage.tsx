@@ -3,6 +3,7 @@ import Header from "../components/shared/Header";
 
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
+import { toast } from "react-toastify";
 
 const steps = [
   {
@@ -160,7 +161,13 @@ const InstallPage = () => {
 
                   <button
                     className="cursor-pointer"
-                    onClick={() => navigator.clipboard.writeText(item.value)}
+                    onClick={() => {
+                      navigator.clipboard.writeText(item.value);
+                      toast(
+                        `${item.label} был успешно скопирован в буфер обмена`,
+                        { type: "success" },
+                      );
+                    }}
                   >
                     <img
                       src="/icons/install/copy.svg"
