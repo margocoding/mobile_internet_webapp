@@ -91,7 +91,7 @@ const Modal = ({
               relative
               z-30
               w-full
-              max-w-[929px]
+              max-w-232.25
               overflow-hidden
               rounded-2xl
               bg-white

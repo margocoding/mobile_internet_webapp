@@ -18,8 +18,9 @@ const Review: React.FC<Props> = ({ username, tariff, rating, text }) => {
       initial={{ opacity: 0, y: 18 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+      className="h-full"
     >
-      <Card className="space-y-3 p-7">
+      <Card className="space-y-3 p-7 h-full">
         <header className="flex justify-between items-center">
           <div className="flex gap-3 max-md:gap-2 items-center">
             <span className="rounded-full bg-[#F8AA37] text-white aspect-square h-10 w-10 max-md:h-8 max-md:w-8 flex items-center justify-center font-Bold">

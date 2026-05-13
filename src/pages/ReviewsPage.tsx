@@ -1,14 +1,76 @@
 import React from "react";
 import Header from "../components/shared/Header";
-import Reviews from "../components/shared/Reviews";
+import Reviews, { type Review } from "../components/shared/Reviews";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import Modal from "../components/ui/Modal";
 import SearchSelect from "../components/ui/SearchSelect";
+import { mockReviews } from "../data/reviews";
+
+const countries = [
+  {
+    label: "Китай",
+    value: "china",
+  },
+  {
+    label: "Египет",
+    value: "egypt",
+  },
+  {
+    label: "Тайланд",
+    value: "thailand",
+  },
+  {
+    label: "Турция",
+    value: "turkey",
+  },
+  {
+    label: "ОАЭ",
+    value: "uae",
+  },
+  {
+    label: "Вьетнам",
+    value: "vietnam",
+  },
+];
 
 const ReviewsPage = () => {
   const [openedModal, setOpenedModal] = React.useState<boolean>(false);
   const [rating, setRating] = React.useState<number>(0);
+  const [reviews, setReviews] = React.useState<Review[]>(mockReviews);
+  const [username, setUsername] = React.useState("");
+  const [reviewText, setReviewText] = React.useState("");
+  const [selectedTariff, setSelectedTariff] = React.useState<string | null>(
+    null,
+  );
+
+  const currentSelectedTariff = React.useMemo(
+    () => countries.find((country) => country.value === selectedTariff),
+    [selectedTariff],
+  );
+
+  const handleAddReview = () => {
+    if (!username || !reviewText || !currentSelectedTariff || !rating) return;
+
+    const newReview: Review = {
+      username,
+      rating,
+      text: reviewText,
+      tariff: {
+        countryName: currentSelectedTariff.label,
+        countryIcon: `/icons/countries/${selectedTariff}.svg`,
+      },
+    };
+
+    setReviews((prev) => [newReview, ...prev]);
+
+    setUsername("");
+    setReviewText("");
+    setSelectedTariff(null);
+    setRating(0);
+
+    setOpenedModal(false);
+  };
 
   return (
     <div className="space-y-10 max-md:px-5 max-md:space-y-5">
@@ -38,6 +100,8 @@ const ReviewsPage = () => {
               round="xl"
               placeholder="Иван Иванов"
               className="h-12 sm:h-14"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
             />
           </div>
 
@@ -49,6 +113,8 @@ const ReviewsPage = () => {
 
             <SearchSelect
               placeholder="Выберите страну"
+              value={selectedTariff || ""}
+              onChange={setSelectedTariff}
               options={[
                 { label: "Турция", value: "turkey" },
                 { label: "ОАЭ", value: "uae" },
@@ -94,7 +160,6 @@ const ReviewsPage = () => {
             </div>
           </div>
 
-          {/* REVIEW */}
           <div className="space-y-1">
             <label className="font-semibold text-sm sm:text-base">
               Ваш отзыв:
@@ -102,20 +167,25 @@ const ReviewsPage = () => {
 
             <textarea
               placeholder="Поделитесь вашим мнением..."
+              value={reviewText}
+              onChange={(e) => setReviewText(e.target.value)}
               className="w-full min-h-25 rounded-2xl border border-[#F5A623] px-5 py-4 outline-none resize-none bg-white text-sm sm:text-base"
             />
           </div>
 
           {/* BUTTON */}
           <div className="flex justify-center pt-2">
-            <Button className="max-w-105 w-full md:h-14 md:text-xl font-bold rounded-full">
+            <Button
+              onClick={handleAddReview}
+              className="max-w-105 w-full md:h-14 md:text-xl font-bold rounded-full"
+            >
               Оставить свой отзыв
             </Button>
           </div>
         </div>
       </Modal>
 
-      <Reviews />
+      <Reviews reviews={reviews} />
 
       <div className="flex justify-center items-center w-full">
         <Button

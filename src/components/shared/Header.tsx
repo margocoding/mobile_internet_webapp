@@ -26,7 +26,7 @@ const Header = ({ text = "white" }: Props) => {
 
   return (
     <motion.header
-      className={`grid grid-cols-[1fr_2fr_1fr] text-${text} items-center py-4 px-4 min-[762px]:px-10`}
+      className={`grid grid-cols-[1fr_2fr_1fr] text-${text} items-center py-4 `}
       initial={{ opacity: 0, y: -12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}

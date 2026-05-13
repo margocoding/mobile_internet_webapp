@@ -15,7 +15,7 @@ const Hero = ({
 }) => {
   return (
     <motion.div
-      className="text-white min-[762px]:space-y-10 max-[762px]:space-y-5 flex min-[762px]:h-225 flex-col items-center py-10 relative overflow-hidden"
+      className="text-white space-y-10 max-md:space-y-5 flex min-[762px]:h-225 flex-col items-center py-10 relative overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={fadeInUpStagger}
@@ -29,7 +29,7 @@ const Hero = ({
 
       <motion.div
         variants={fadeInUp}
-        className="py-2 min-[762px]:text-xl max-md:px-6 max-md:py-1 px-10 z-10 border-2 border-[#FFFFFF] rounded-full"
+        className="py-2 min-[762px]:text-xl max-md:px-6 max-md:mb-8 max-md:py-1 px-10 z-10 border-2 border-[#FFFFFF] rounded-full"
       >
         Быстро. Выгодно. Безопасно.
       </motion.div>

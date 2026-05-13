@@ -16,53 +16,46 @@ interface Tariff {
   price: string;
   dayPrice: string;
   days?: string;
-  discount: string;
+  discount?: string;
   badge?: string;
 }
 
 export const unlimitedTariffs: Tariff[] = [
   {
     id: 1,
-    title: "7 дней",
+    title: "1 день",
     price: "200₽",
-    dayPrice: "29₽ / день",
+    dayPrice: "200₽ / день",
     discount: "-9%",
     badge: "Для новых клиентов",
   },
   {
     id: 2,
-    title: "15 дней",
-    price: "1000₽",
-    dayPrice: "67₽ / день",
+    title: "3 дня",
+    price: "900₽",
+    dayPrice: "300₽ / день",
     discount: "-13%",
     badge: "☆ Популярный",
   },
   {
     id: 3,
-    title: "30 дней",
-    price: "2000₽",
-    dayPrice: "67₽ / день",
-    discount: "-21%",
-  },
-  {
-    id: 4,
-    title: "45 дней",
+    title: "15 дней",
     price: "3000₽",
-    dayPrice: "67₽ / день",
+    dayPrice: "200₽ / день",
     discount: "-28%",
   },
   {
-    id: 5,
-    title: "60 дней",
-    price: "5000₽",
-    dayPrice: "83₽ / день",
-    discount: "-35%",
+    id: 4,
+    title: "7 дней",
+    price: "2100₽",
+    dayPrice: "300₽ / день",
+    discount: "-21%",
   },
   {
-    id: 6,
-    title: "90 дней",
+    id: 5,
+    title: "30 дней",
     price: "6000₽",
-    dayPrice: "67₽ / день",
+    dayPrice: "200₽ / день",
     discount: "-35%",
   },
 ];
@@ -71,51 +64,50 @@ export const fixedTariffs: Tariff[] = [
   {
     id: 7,
     gb: "1 GB",
-
     title: "7 дней",
-    price: "300₽",
-    dayPrice: "43₽ / день",
-    discount: "-9%",
+    price: "200₽",
+    badge: "Для новых клиентов",
+    dayPrice: "200₽ / день",
   },
   {
     id: 8,
     gb: "3 GB",
     title: "15 дней",
-    price: "700₽",
-    dayPrice: "47₽ / день",
-    discount: "-13%",
+    price: "1000₽",
+    badge: "⭐ Популярный",
+    dayPrice: "100₽ / день",
   },
   {
     id: 9,
-    gb: "5 GB",
-    title: "15 дней",
-    price: "1000₽",
-    dayPrice: "67₽ / день",
-    discount: "-21%",
+    gb: "10 GB",
+    title: "30 дней",
+    price: "2000₽",
+    dayPrice: "100₽ / день",
+    discount: "-16%",
   },
   {
     id: 10,
-    gb: "10 GB",
+    gb: "20 GB",
     title: "30 дней",
-    price: "1700₽",
-    dayPrice: "57₽ / день",
-    discount: "-28%",
+    price: "2100₽",
+    dayPrice: "300₽ / день",
+    discount: "-22%",
   },
   {
     id: 11,
-    gb: "20 GB",
+    gb: "30 GB",
     title: "30 дней",
-    price: "2700₽",
-    dayPrice: "90₽ / день",
-    discount: "-35%",
+    price: "5000₽",
+    dayPrice: "100₽ / день",
+    discount: "-30%",
   },
   {
     id: 12,
-    gb: "30 GB",
+    gb: "50 GB",
     title: "30 дней",
-    price: "3900₽",
-    dayPrice: "130₽ / день",
-    discount: "-35%",
+    price: "6000₽",
+    dayPrice: "100₽ / день",
+    discount: "-41%",
   },
 ];
 
@@ -248,8 +240,8 @@ const TariffPage = () => {
         </h1>
         <div className="bg-linear-to-br p-5 space-y-5 rounded-3xl from-[#2663FF] to-[#8495FF]">
           <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.75fr] gap-4 sm:gap-6">
-            {/* LEFT */}
-            <div className="bg-[url('/images/tariff/background.png')] bg-cover bg-center rounded-2xl overflow-hidden md:min-h-105 lg:h-full">
+            {/* LEFT  bg-[url('/images/tariff/background.png')]*/}
+            <div className="bg-cover bg-center rounded-2xl overflow-hidden md:min-h-105 lg:h-full">
               <div className="bg-[#11345CB5] h-full px-5 max-sm:px-8 md:py-8 max-md:p-3 flex md:flex-col max-md:justify-between justify-center items-center text-center">
                 <div className="md:space-y-3">
                   <h3 className="text-white/80 text-xl max-md:text-base">
@@ -335,8 +327,9 @@ const TariffPage = () => {
                           </p>
                         </div>
 
-                        {/* DISCOUNT */}
-                        <Discount>{tariff.discount}</Discount>
+                        {tariff.discount && (
+                          <Discount>{tariff.discount}</Discount>
+                        )}
                       </Card>
                     </div>
                   ))}
