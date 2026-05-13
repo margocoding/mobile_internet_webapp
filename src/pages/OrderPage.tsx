@@ -253,7 +253,10 @@ const OrderPage = () => {
               >
                 <div className="space-y-2">
                   <div>
-                    <h3 className="text-2xl font-bold">{currentPrice} руб.</h3>
+                    <h3 className="text-2xl font-bold">
+{typeof currentPrice === "number"
+                  ? `${currentPrice}₽`
+                  : currentPrice}</h3>
 
                     <p className="text-[#808080]">Российские карты</p>
                   </div>
