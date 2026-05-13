@@ -22,14 +22,14 @@ const Hero = ({
     >
       <motion.h1
         variants={fadeInUp}
-        className="text-6xl max-[762px]:text-4xl font-bold z-10 text-center"
+        className="text-6xl max-[762px]:text-3xl font-bold z-10 text-center"
       >
         Мобильный интернет <br /> за границей для вас <br /> и ваших близких
       </motion.h1>
 
       <motion.div
         variants={fadeInUp}
-        className="py-2 min-[762px]:text-xl px-10 z-10 border-2 border-[#FFFFFF] rounded-full"
+        className="py-2 min-[762px]:text-xl max-md:px-6 max-md:py-1 px-10 z-10 border-2 border-[#FFFFFF] rounded-full"
       >
         Быстро. Выгодно. Безопасно.
       </motion.div>
