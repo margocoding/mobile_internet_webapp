@@ -11,10 +11,10 @@ const CloseButton = ({ color = "default", className, ...rest }: Props) => {
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-      className={`p-2 cursor-pointer h-full flex items-center justify-center aspect-square rounded-xl ${colorClassName} ${className}`}
+      className={`p-3 cursor-pointer h-full flex items-center justify-center aspect-square rounded-xl ${colorClassName} ${className}`}
       {...rest}
     >
-      <img src="/icons/close.svg" alt="Close" className="w-5 h-5" />
+      <img src="/icons/close.svg" alt="Close" className="w-7 h-7" />
     </motion.button>
   );
 };

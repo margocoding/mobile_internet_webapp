@@ -106,15 +106,14 @@ const Modal = ({
               ${className}
             `}
           >
-            <div className="flex justify-between gap-3">
-              <div className="w-full">{header}</div>
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0 flex-1">{header}</div>
 
-              <div>
+              <div className="shrink-0">
                 <CloseButton color={color} onClick={() => setOpened(false)} />
               </div>
             </div>
 
-            {/* SCROLL */}
             <div className="mt-5 max-h-[calc(90vh-100px)] overflow-y-auto">
               {children}
             </div>
