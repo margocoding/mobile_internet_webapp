@@ -1,4 +1,3 @@
-// components/ui/Modal.tsx
 import {
   useEffect,
   type Dispatch,
@@ -30,12 +29,15 @@ const Modal = ({
   useEffect(() => {
     if (opened) {
       document.body.style.overflow = "hidden";
+      document.body.style.touchAction = "none";
     } else {
       document.body.style.overflow = "";
+      document.body.style.touchAction = "";
     }
 
     return () => {
       document.body.style.overflow = "";
+      document.body.style.touchAction = "";
     };
   }, [opened]);
 
@@ -45,13 +47,15 @@ const Modal = ({
         <motion.div
           onClick={() => setOpened(false)}
           className="
-            fixed inset-0 z-20
-            p-10
-            h-full
-            text-black
+            fixed inset-0 z-50
+            flex items-center justify-center
+            overflow-y-auto
             bg-black/10
+            p-10
+            text-black
             backdrop-blur-xs
 
+            max-[1024px]:items-end
             max-[1024px]:p-0
           "
           initial={{ opacity: 0 }}
@@ -84,37 +88,42 @@ const Modal = ({
               ease: [0.16, 1, 0.3, 1],
             }}
             className={`
-              absolute
-              left-1/2
-              top-1/2
+              relative
               z-30
-              w-232.25
-              -translate-x-1/2
-              -translate-y-1/2
+              w-full
+              max-w-[929px]
               overflow-hidden
               rounded-2xl
               bg-white
               p-7
+              shadow-2xl
 
-              max-[1024px]:w-full
-              max-[1024px]:h-full
-              max-[1024px]:min-h-screen
-              max-[1024px]:max-h-full
+              max-[1024px]:min-h-dvh
+              max-[1024px]:max-w-full
               max-[1024px]:rounded-none
               max-[1024px]:p-5
 
               ${className}
             `}
           >
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0 flex-1">{header}</div>
+            {(header || true) && (
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0 flex-1">{header}</div>
 
-              <div className="shrink-0">
-                <CloseButton color={color} onClick={() => setOpened(false)} />
+                <div className="shrink-0">
+                  <CloseButton color={color} onClick={() => setOpened(false)} />
+                </div>
               </div>
-            </div>
+            )}
 
-            <div className="mt-5 max-h-[calc(90vh-100px)] overflow-y-auto">
+            <div
+              className="
+                mt-5
+                max-h-[calc(100dvh-140px)]
+                overflow-y-auto
+                overscroll-contain
+              "
+            >
               {children}
             </div>
           </motion.div>
