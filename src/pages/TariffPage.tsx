@@ -262,7 +262,7 @@ const TariffPage = () => {
             </div>
 
             {/* RIGHT */}
-            <div className="flex flex-col justify-between min-h-0 h-full">
+            <div className="flex flex-col min-h-0 h-full">
               <div className="space-y-4 sm:space-y-5 flex flex-col flex-1 min-h-0">
                 <div className="overflow-x-auto pb-1">
                   <div className="w-fit mx-auto">

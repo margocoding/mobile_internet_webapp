@@ -76,19 +76,14 @@ const ReviewsPage = () => {
     <div className="space-y-10 max-md:px-5 max-md:space-y-5">
       <Header text="black" />
 
-      <Modal
-        header={
+      <Modal opened={openedModal} setOpened={setOpenedModal}>
+        <div className="space-y-3">
           <div className="text-center">
             <h2 className="font-bold text-2xl sm:text-3xl">Оставить отзыв</h2>
+            <p className="text-[#808080] text-sm sm:text-base">
+              Поделитесь своим опытом — это поможет нам стать лучше
+            </p>
           </div>
-        }
-        opened={openedModal}
-        setOpened={setOpenedModal}
-      >
-        <div className="space-y-3">
-          <p className="text-[#808080] text-center text-sm sm:text-base">
-            Поделитесь своим опытом — это поможет нам стать лучше
-          </p>
 
           {/* NAME */}
           <div className="space-y-1">

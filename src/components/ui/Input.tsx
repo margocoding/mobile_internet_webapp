@@ -41,6 +41,7 @@ const Input = ({
         className={`
           w-full
           border
+          max-md:border-2
           outline-none
           text-black
           placeholder:text-[#808080]
