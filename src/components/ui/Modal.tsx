@@ -51,6 +51,8 @@ const Modal = ({
             p-10
             text-black
             backdrop-blur-xs
+
+            max-[1024px]:items-start
             max-[1024px]:min-h-screen
             max-[1024px]:p-0
           "
