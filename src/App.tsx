@@ -4,6 +4,7 @@ import Footer from "./components/shared/Footer";
 import React from "react";
 import ScrollToTop from "./components/ui/ScrollToTop";
 import { ToastContainer } from "react-toastify";
+import { usePreloadAllImages } from "./utils/hooks/usePreloadImages";
 
 const TariffPage = React.lazy(() => import("./pages/TariffPage"));
 const OrderPage = React.lazy(() => import("./pages/OrderPage"));
@@ -11,6 +12,7 @@ const InstallPage = React.lazy(() => import("./pages/InstallPage"));
 const ReviewsPage = React.lazy(() => import("./pages/ReviewsPage"));
 
 function App() {
+  usePreloadAllImages();
   return (
     <div className="pb-10 max-w-5xl mx-auto">
       <ScrollToTop />
