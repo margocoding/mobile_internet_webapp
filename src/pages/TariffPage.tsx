@@ -265,7 +265,7 @@ const TariffPage = () => {
             <div className="flex flex-col h-full">
               <div className="space-y-4 sm:space-y-5 flex flex-col flex-1 min-h-0">
                 <div className="overflow-x-auto pb-1 shrink-0">
-                  <div className="w-full mx-auto">
+                  <div className="mx-auto w-full justify-center flex">
                     <Toggle
                       options={[
                         {
