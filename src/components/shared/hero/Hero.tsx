@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import React from "react";
 import { Link } from "react-router-dom";
 import { fadeInUp, fadeInUpStagger } from "../../ui/animation";
 import Button from "../../ui/Button";
@@ -11,7 +10,7 @@ import { availableCountries } from "./CountriesModal";
 const Hero = ({
   setOpenedModal,
 }: {
-  setOpenedModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenedModal: (data: boolean) => void;
 }) => {
   return (
     <motion.div
@@ -41,24 +40,29 @@ const Hero = ({
             placeholder="Где вам нужна eSIM?"
           />
 
-          <div className="flex gap-3 max-md:gap-1 flex-wrap max-w-150">
+          <div className="flex gap-3 items-center max-md:gap-1 flex-wrap max-w-150">
             {availableCountries
               .filter((country) => country.isPopular)
               .map((country) => (
                 <Link to={`/tariff/${country.id}`} key={country.id}>
                   <Chip>
-                    <div className="flex gap-3 max-md:text-sm">
+                    <div className="flex gap-3 max-md:gap-1 text-[#808080] items-center max-md:text-sm">
                       <img
                         src={country.miniIcon}
                         alt={country.name}
-                        className="w-6 h-6 max-md:w-5 max-md:h-5"
+                        className="w-6 h-6 max-md:w-4.5 max-md:h-4.5"
                       />
                       <span>{country.name}</span>
                     </div>
                   </Chip>
                 </Link>
               ))}
-            <Button onClick={() => setOpenedModal(true)}>Показать все</Button>
+            <Button
+              className="max-md:h-7 max-md:text-xs max-md:flex max-md:items-center"
+              onClick={() => setOpenedModal(true)}
+            >
+              Показать все
+            </Button>
           </div>
         </Card>
       </motion.div>

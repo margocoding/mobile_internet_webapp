@@ -1,9 +1,4 @@
-import {
-  useEffect,
-  type Dispatch,
-  type ReactNode,
-  type SetStateAction,
-} from "react";
+import React, { useEffect, type ReactNode } from "react";
 
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -11,7 +6,9 @@ import CloseButton from "./CloseButton";
 
 interface Props {
   opened: boolean;
-  setOpened: Dispatch<SetStateAction<boolean>>;
+  setOpened:
+    | ((data: boolean) => boolean)
+    | React.Dispatch<React.SetStateAction<boolean>>;
   children: ReactNode;
   header?: ReactNode;
   className?: string;
@@ -56,6 +53,7 @@ const Modal = ({
             backdrop-blur-xs
 
             max-[1024px]:items-end
+            max-[1024px]:min-h-screen
             max-[1024px]:p-0
           "
           initial={{ opacity: 0 }}
@@ -68,62 +66,37 @@ const Modal = ({
         >
           <motion.div
             onClick={(e) => e.stopPropagation()}
-            initial={{
-              opacity: 0,
-              scale: 0.96,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              y: 0,
-            }}
-            exit={{
-              opacity: 0,
-              scale: 0.96,
-              y: 10,
-            }}
-            transition={{
-              duration: 0.25,
-              ease: [0.16, 1, 0.3, 1],
-            }}
             className={`
-              relative
-              z-30
-              w-full
-              max-w-232.25
-              overflow-hidden
-              rounded-2xl
-              bg-white
-              p-7
-              shadow-2xl
+    relative
+    z-30
+    flex
+    max-h-dvh
+    w-full
+    max-w-232.25
+    flex-col
+    overflow-hidden
+    rounded-2xl
+    bg-white
+    p-7
+    shadow-2xl
 
-              max-[1024px]:min-h-dvh
-              max-[1024px]:max-w-full
-              max-[1024px]:rounded-none
-              max-[1024px]:p-5
+    max-[1024px]:h-dvh
+    max-[1024px]:max-w-full
+    max-[1024px]:rounded-none
+    max-[1024px]:p-5
 
-              ${className}
-            `}
+    ${className}
+  `}
           >
-            {(header || true) && (
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0 flex-1">{header}</div>
+            <div className="flex items-start justify-between gap-3 shrink-0">
+              <div className="min-w-0 flex-1">{header}</div>
 
-                <div className="shrink-0">
-                  <CloseButton color={color} onClick={() => setOpened(false)} />
-                </div>
+              <div className="shrink-0">
+                <CloseButton color={color} onClick={() => setOpened(false)} />
               </div>
-            )}
+            </div>
 
-            <div
-              className="
-                mt-5
-                max-h-[calc(100dvh-140px)]
-                overflow-y-auto
-                overscroll-contain
-              "
-            >
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
               {children}
             </div>
           </motion.div>

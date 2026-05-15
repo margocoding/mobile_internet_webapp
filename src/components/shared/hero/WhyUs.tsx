@@ -39,7 +39,7 @@ const blocks = [
 const WhyUs = ({
   setOpenedModal,
 }: {
-  setOpenedModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setOpenedModal: (data: boolean) => void;
 }) => {
   return (
     <motion.section

@@ -4,6 +4,7 @@ import Button from "../ui/Button";
 import Separator from "../ui/Separator";
 import CloseButton from "../ui/CloseButton";
 import { Link } from "react-router";
+import { useTariffStore } from "../../store/tariffStore";
 
 const navLinks = [
   { label: "Тарифы", href: "/#tariffs", icon: "/icons/header/tariffs.svg" },
@@ -23,6 +24,7 @@ interface Props {
 
 const Header = ({ text = "white" }: Props) => {
   const [opened, setOpened] = React.useState<boolean>(false);
+  const { setModal } = useTariffStore();
 
   return (
     <motion.header
@@ -47,7 +49,7 @@ const Header = ({ text = "white" }: Props) => {
       </nav>
 
       <span className="ml-auto max-[1024px]:hidden">
-        <Button>Выбрать тариф</Button>
+        <Button onClick={() => setModal(true)}>Выбрать тариф</Button>
       </span>
 
       <button
@@ -81,7 +83,7 @@ const Header = ({ text = "white" }: Props) => {
             <div className=" absolute top-4.5 right-4.5">
               <CloseButton onClick={() => setOpened(false)} />
             </div>
-            <div className="mt-20 flex flex-col gap-10 font-semibold text-xl">
+            <div className="mt-15 flex flex-col gap-10 font-semibold text-xl">
               <a
                 onClick={() => setOpened(false)}
                 className="hover:text-[#F8AA37] flex items-center gap-3 text-black transition-colors"

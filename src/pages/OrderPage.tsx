@@ -136,7 +136,6 @@ const OrderPage = () => {
                   : currentPrice}
               </h3>
 
-              {/* SUCCESS MESSAGE */}
               {promoApplied && (
                 <p className="text-[#B0B0B0] underline underline-offset-4 w-fit">
                   Промокод успешно применён
@@ -144,7 +143,6 @@ const OrderPage = () => {
               )}
             </div>
 
-            {/* OPEN PROMO */}
             {!promoOpened && !promoApplied && (
               <button
                 onClick={() => setPromoOpened(true)}
