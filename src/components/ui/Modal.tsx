@@ -53,7 +53,7 @@ const Modal = ({
             backdrop-blur-xs
 
             max-[1024px]:items-start
-            max-[1024px]:min-h-screen
+            min-h-screen
             max-[1024px]:p-0
           "
           initial={{ opacity: 0 }}
