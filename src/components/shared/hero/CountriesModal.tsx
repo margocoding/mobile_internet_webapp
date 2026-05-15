@@ -146,6 +146,7 @@ const CountriesModal = ({ opened, setOpened }: Props) => {
         <Input
           color="primary"
           round="xl"
+          autoFocus
           placeholder="Найдите свое направление..."
           leftIcon={<img src="/icons/search.svg" alt="search" />}
         />

@@ -38,6 +38,7 @@ const Hero = ({
           <Input
             leftIcon={<img src="/icons/search.svg" alt="Search" />}
             placeholder="Где вам нужна eSIM?"
+            onClick={() => setOpenedModal(true)}
           />
 
           <div className="flex gap-3 items-center max-md:gap-1 flex-wrap max-w-150">
