@@ -135,7 +135,34 @@ export const availableCountries = [
   },
 ];
 
+import React from "react";
+
+interface Props {
+  opened: boolean;
+  setOpened: (data: boolean) => void;
+}
+
 const CountriesModal = ({ opened, setOpened }: Props) => {
+  const [search, setSearch] = React.useState<string>("");
+
+  // Фильтрация всех стран
+  const filteredCountries = React.useMemo(() => {
+    if (!search.trim()) return availableCountries;
+
+    return availableCountries.filter(
+      (country) =>
+        country.name.toLowerCase().indexOf(search.toLowerCase()) > -1,
+    );
+  }, [search]);
+
+  // Фильтрация популярных стран
+  const filteredPopularCountries = React.useMemo(() => {
+    return filteredCountries.filter((country) => country.isPopular);
+  }, [filteredCountries]);
+
+  console.log(search);
+  console.log(filteredCountries);
+
   return (
     <Modal
       className="space-y-5"
@@ -144,6 +171,9 @@ const CountriesModal = ({ opened, setOpened }: Props) => {
       setOpened={setOpened}
       header={
         <Input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          options={availableCountries.map((country) => country.name)}
           color="primary"
           round="xl"
           autoFocus
@@ -152,13 +182,12 @@ const CountriesModal = ({ opened, setOpened }: Props) => {
         />
       }
     >
-      <div>
-        <h2 className="font-semibold text-xl">Популярные страны</h2>
+      {!!filteredPopularCountries.length && (
+        <div>
+          <h2 className="font-semibold text-xl">Популярные страны</h2>
 
-        <div className="grid md:grid-cols-2 gap-3">
-          {availableCountries
-            .filter((country) => country.isPopular)
-            .map((country) => (
+          <div className="grid md:grid-cols-2 gap-3">
+            {filteredPopularCountries.map((country) => (
               <CountryCard
                 key={country.id}
                 name={country.name}
@@ -167,23 +196,32 @@ const CountriesModal = ({ opened, setOpened }: Props) => {
                 id={country.id}
               />
             ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div>
-        <h2 className="font-semibold text-xl">Все страны</h2>
+        <h2 className="font-semibold text-xl">
+          {search ? "Результаты поиска" : "Все страны"}
+        </h2>
 
-        <div className="grid md:grid-cols-2 gap-3">
-          {availableCountries.map((country) => (
-            <CountryCard
-              key={country.id}
-              id={country.id}
-              name={country.name}
-              icon={country.icon}
-              startPrice={country.startPrice}
-            />
-          ))}
-        </div>
+        {filteredCountries.length ? (
+          <div className="grid md:grid-cols-2 gap-3">
+            {filteredCountries.map((country) => (
+              <CountryCard
+                key={country.id}
+                id={country.id}
+                name={country.name}
+                icon={country.icon}
+                startPrice={country.startPrice}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500 mt-3">
+            По вашему запросу ничего не найдено
+          </p>
+        )}
       </div>
     </Modal>
   );
