@@ -34,7 +34,7 @@ const Hero = ({
         Быстро. Выгодно. Безопасно.
       </motion.div>
 
-      <motion.div variants={fadeInUp} className="z-50">
+      <motion.div variants={fadeInUp} className="z-10">
         <Card className="space-y-3 z-10 mx-4 p-5 rounded-4xl">
           <Input
             leftIcon={<img src="/icons/search.svg" alt="Search" />}
