@@ -18,13 +18,13 @@ export default function MainPage() {
     <div>
       <CountriesModal opened={openedModal} setOpened={setModal} />
 
-      <div className="bg-linear-to-r from-[#2663FF] to-[#8495FF]">
+      <div className="bg-linear-to-r from-[#2663FF] z-20 to-[#8495FF]">
         <div className="max-md:px-4 px-10">
           <Header />
         </div>
         <Hero setOpenedModal={setModal} />
       </div>
-      <div className="bg-white -mt-80 max-[950px]:-mt-60 px-5 max-[762px]:-mt-10 pt-10 relative z-10 rounded-t-[50px] space-y-15">
+      <div className="bg-white -mt-80 max-[950px]:-mt-60 px-5 max-[762px]:-mt-10 pt-10 relative rounded-t-[50px] space-y-15">
         <WhyUs setOpenedModal={setModal} />
         <div className="space-y-5">
           <Reviews reviews={reviews} />

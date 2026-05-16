@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fadeInUp, fadeInUpStagger } from "../../ui/animation";
 import Button from "../../ui/Button";
 import Card from "../../ui/Card";
@@ -12,9 +12,10 @@ const Hero = ({
 }: {
   setOpenedModal: (data: boolean) => void;
 }) => {
+  const navigate = useNavigate();
   return (
     <motion.div
-      className="text-white space-y-10 max-md:space-y-5 flex min-[762px]:h-225 flex-col items-center py-10 relative overflow-hidden"
+      className="text-white space-y-10 max-md:space-y-5 flex min-[762px]:h-225 flex-col items-center py-10 relative"
       initial="hidden"
       animate="visible"
       variants={fadeInUpStagger}
@@ -33,12 +34,20 @@ const Hero = ({
         Быстро. Выгодно. Безопасно.
       </motion.div>
 
-      <motion.div variants={fadeInUp} className="z-10">
+      <motion.div variants={fadeInUp} className="z-50">
         <Card className="space-y-3 z-10 mx-4 p-5 rounded-4xl">
           <Input
             leftIcon={<img src="/icons/search.svg" alt="Search" />}
+            options={availableCountries.map((country) => ({
+              label: country.name,
+              value: country.id,
+              description: `От ${country.startPrice}/день`,
+              icon: country.miniIcon ? (
+                <img src={country.miniIcon} />
+              ) : undefined,
+            }))}
+            onOptionClick={(value) => navigate(`/tariff/${value}`)}
             placeholder="Где вам нужна eSIM?"
-            onClick={() => setOpenedModal(true)}
           />
 
           <div className="flex gap-3 items-center max-md:gap-1 flex-wrap max-w-150">

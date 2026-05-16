@@ -155,7 +155,6 @@ const CountriesModal = ({ opened, setOpened }: Props) => {
     );
   }, [search]);
 
-  // Фильтрация популярных стран
   const filteredPopularCountries = React.useMemo(() => {
     return filteredCountries.filter((country) => country.isPopular);
   }, [filteredCountries]);
@@ -165,7 +164,7 @@ const CountriesModal = ({ opened, setOpened }: Props) => {
 
   return (
     <Modal
-      className="space-y-5"
+      className="space-y-5 min-h-75"
       color="primary"
       opened={opened}
       setOpened={setOpened}
@@ -173,7 +172,12 @@ const CountriesModal = ({ opened, setOpened }: Props) => {
         <Input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          options={availableCountries.map((country) => country.name)}
+          options={availableCountries.map((country) => ({
+            label: country.name,
+            value: country.id,
+            description: `От ${country.startPrice}/день`,
+            icon: country.miniIcon ? <img src={country.miniIcon} /> : undefined,
+          }))}
           color="primary"
           round="xl"
           autoFocus
@@ -182,7 +186,7 @@ const CountriesModal = ({ opened, setOpened }: Props) => {
         />
       }
     >
-      {!!filteredPopularCountries.length && (
+      {!!filteredPopularCountries.length && !search && (
         <div>
           <h2 className="font-semibold text-xl">Популярные страны</h2>
 
