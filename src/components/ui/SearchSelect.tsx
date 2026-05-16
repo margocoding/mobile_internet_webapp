@@ -11,12 +11,14 @@ interface SearchSelectProps {
   placeholder?: string;
   value?: string;
   onChange?: (value: string) => void;
+  hasArrowIcon?: boolean;
 }
 
 const SearchSelect = ({
   options,
   placeholder = "Выберите страну",
   value,
+  hasArrowIcon = true,
   onChange,
 }: SearchSelectProps) => {
   const [query, setQuery] = React.useState(value || "");
@@ -40,23 +42,25 @@ const SearchSelect = ({
       />
 
       {/* ARROW */}
-      <svg
-        className={`absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none transition-transform ${
-          opened ? "rotate-180" : ""
-        }`}
-        width="18"
-        height="18"
-        viewBox="0 0 24 24"
-        fill="none"
-      >
-        <path
-          d="M6 9L12 15L18 9"
-          stroke="#2B2B2B"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
+      {hasArrowIcon && (
+        <svg
+          className={`absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none transition-transform ${
+            opened ? "rotate-180" : ""
+          }`}
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+        >
+          <path
+            d="M6 9L12 15L18 9"
+            stroke="#2B2B2B"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      )}
 
       {/* DROPDOWN */}
       <AnimatePresence>
