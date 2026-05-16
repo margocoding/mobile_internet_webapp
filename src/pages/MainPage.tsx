@@ -18,7 +18,7 @@ export default function MainPage() {
     <div>
       <CountriesModal opened={openedModal} setOpened={setModal} />
 
-      <div className="bg-linear-to-r from-[#2663FF] z-20 to-[#8495FF]">
+      <div className="bg-linear-to-r from-[#2663FF] to-[#8495FF]">
         <div className="max-md:px-4 px-10">
           <Header />
         </div>
