@@ -295,7 +295,7 @@ const OrderPage = () => {
               disabled={
                 !email.trim() ||
                 !checked ||
-                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+                !/^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(email)
               }
               className="w-full h-14 text-lg font-semibold max-sm:text-base"
             >
