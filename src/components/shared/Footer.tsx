@@ -1,7 +1,10 @@
 import { motion } from "framer-motion";
 import { fadeInUp } from "../ui/animation";
+import { useTariffStore } from "../../store/tariffStore";
 
 const Footer = () => {
+  const { setModal } = useTariffStore();
+
   return (
     <motion.footer
       className="space-y-10 max-w-5xl mx-auto p-5"
@@ -27,10 +30,19 @@ const Footer = () => {
           <span className="space-y-3">
             <h3 className="text-[#F8AA37] text-xl font-bold">ОСНОВНОЕ</h3>
 
-            <div>
-              <p className="text-[#808080] font-medium">Тарифы</p>
-              <p className="text-[#808080] font-medium">О компании</p>
-              <p className="text-[#808080] font-medium">FAQ</p>
+            <div className="flex flex-col">
+              <button
+                className="text-[#808080] font-medium cursor-pointer w-fit"
+                onClick={() => setModal(true)}
+              >
+                Тарифы
+              </button>
+              <a href="/#about_us" className="text-[#808080] font-medium">
+                О компании
+              </a>
+              <a href="/#faq" className="text-[#808080] font-medium">
+                FAQ
+              </a>
             </div>
           </span>
 

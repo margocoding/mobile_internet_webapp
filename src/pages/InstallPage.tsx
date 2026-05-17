@@ -4,6 +4,10 @@ import Header from "../components/shared/Header";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import { toast } from "react-toastify";
+import React from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import { fixedTariffs, unlimitedTariffs } from "./TariffPage";
+import { availableCountries } from "../components/shared/CountriesModal";
 
 const steps = [
   {
@@ -62,6 +66,27 @@ const esimData = [
 ];
 
 const InstallPage = () => {
+  const [searchParams] = useSearchParams();
+
+  const tariffType = searchParams.get("type");
+  const tariffId = useParams().tariff_id;
+  const countryId = useParams().country_id;
+
+  const tariff = React.useMemo(() => {
+    if (!tariffId || !tariffType) return null;
+
+    if (tariffType === "unlimited") {
+      return unlimitedTariffs.find((t) => t.id === parseInt(tariffId));
+    } else {
+      return fixedTariffs.find((t) => t.id === parseInt(tariffId));
+    }
+  }, [tariffId, tariffType]);
+
+  const country = React.useMemo(
+    () => availableCountries.find((c) => c.id === countryId),
+    [countryId],
+  );
+
   return (
     <div className="min-h-screen flex flex-col max-md:px-4">
       <div className="max-w-6xl w-full mx-auto flex-1 flex flex-col space-y-8">
@@ -91,18 +116,18 @@ const InstallPage = () => {
               <div className="flex flex-col items-center text-center">
                 <div className="flex items-center gap-3">
                   <h2 className="text-4xl font-medium max-md:text-2xl">
-                    eSIM Турция
+                    eSIM {country.name}
                   </h2>
 
                   <img
-                    src="/icons/countries/turkey.svg"
+                    src={country.icon}
                     alt="turkey"
                     className="w-8 h-8 rounded-full"
                   />
                 </div>
 
                 <h3 className="mt-4 text-4xl font-extrabold max-md:text-2xl">
-                  10 GB • 30 дней
+                  {tariff.gb || "∞ GB"} • {tariff.days} дней
                 </h3>
 
                 <div className="mt-5">
@@ -115,7 +140,9 @@ const InstallPage = () => {
                       text-sm
                     "
                   >
-                    Фиксированный тариф
+                    {tariffType === "unlimited"
+                      ? "Безлимитный"
+                      : "Фиксированный тариф"}
                   </div>
                 </div>
               </div>
