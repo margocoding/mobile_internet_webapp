@@ -7,7 +7,6 @@ import { Link } from "react-router";
 import { useTariffStore } from "../../store/tariffStore";
 
 const navLinks = [
-  { label: "Тарифы", href: "/#tariffs", icon: "/icons/header/tariffs.svg" },
   { label: "О нас", href: "/#about_us", icon: "/icons/header/about_us.svg" },
   { label: "Отзывы", href: "/#reviews", icon: "/icons/header/reviews.svg" },
   {
@@ -37,6 +36,12 @@ const Header = ({ text = "white" }: Props) => {
         ЛОГОТИП
       </Link>
       <nav className="flex gap-4 text-xl justify-center max-[1024px]:hidden">
+        <p
+          onClick={() => setModal(true)}
+          className="hover:text-[#F8AA37] transition-colors"
+        >
+          Тарифы
+        </p>
         {navLinks.map((link) => (
           <a
             key={link.href}
