@@ -1,6 +1,6 @@
-import CountryCard from "../../ui/CountryCard";
-import Input from "../../ui/Input";
-import Modal from "../../ui/Modal";
+import CountryCard from "../ui/CountryCard";
+import Input from "../ui/Input";
+import Modal from "../ui/Modal";
 
 interface Props {
   opened: boolean;
@@ -193,6 +193,7 @@ const CountriesModal = ({ opened, setOpened }: Props) => {
           <div className="grid md:grid-cols-2 gap-3">
             {filteredPopularCountries.map((country) => (
               <CountryCard
+                onClick={() => setOpened(false)}
                 key={country.id}
                 name={country.name}
                 icon={country.icon}
@@ -213,6 +214,7 @@ const CountriesModal = ({ opened, setOpened }: Props) => {
           <div className="grid md:grid-cols-2 gap-3">
             {filteredCountries.map((country) => (
               <CountryCard
+                onClick={() => setOpened(false)}
                 key={country.id}
                 id={country.id}
                 name={country.name}

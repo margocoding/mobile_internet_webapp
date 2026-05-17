@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import Header from "../components/shared/Header";
-import { availableCountries } from "../components/shared/hero/CountriesModal";
+import { availableCountries } from "../components/shared/CountriesModal";
 import Button from "../components/ui/Button";
 import Card from "../components/ui/Card";
 import Input from "../components/ui/Input";
@@ -16,12 +16,8 @@ const OrderPage = () => {
   >("international");
 
   const [openedPopup, setOpenedPopup] = React.useState<boolean>(false);
-
   const [email, setEmail] = React.useState<string>("");
-
   const [checked, setChecked] = React.useState<boolean>(false);
-
-  // NEW
   const [promoOpened, setPromoOpened] = React.useState(false);
   const [promoCode, setPromoCode] = React.useState("");
   const [promoApplied, setPromoApplied] = React.useState(false);
@@ -53,16 +49,8 @@ const OrderPage = () => {
 
   if (!tariff || !country) return null;
 
-  // NEW
-  const currentPrice = discountedPrice ?? tariff.price;
-
-  // MOCK PROMOCODE
   const handleApplyPromo = () => {
-    // const normalizedPromo = promoCode.trim().toLowerCase();
-
-    const parsedPrice = Number(tariff.price.replace(/[^\d]/g, ""));
-
-    const discounted = Math.round(parsedPrice * 0.9);
+    const discounted = Math.round(tariff.dayPrice * tariff.days * 0.9);
 
     setDiscountedPrice(discounted);
     setPromoApplied(true);
@@ -131,9 +119,16 @@ const OrderPage = () => {
               <p className="text-[#808080]">Итого к оплате</p>
 
               <h3 className="text-3xl font-bold max-sm:text-2xl">
-                {typeof currentPrice === "number"
-                  ? `${currentPrice}₽`
-                  : currentPrice}
+                {promoApplied ? (
+                  <div className="flex gap-3">
+                    <p className="line-through">
+                      {tariff.dayPrice * tariff.days}
+                    </p>
+                    <p className="text-[#F8AA37]">{discountedPrice} руб.</p>
+                  </div>
+                ) : (
+                  <div>{tariff.dayPrice * tariff.days} руб.</div>
+                )}
               </h3>
 
               {promoApplied && (
@@ -252,9 +247,8 @@ const OrderPage = () => {
                 <div className="space-y-2">
                   <div>
                     <h3 className="text-2xl font-bold">
-{typeof currentPrice === "number"
-                  ? `${currentPrice}₽`
-                  : currentPrice}</h3>
+                      {discountedPrice || tariff.dayPrice * tariff.days} руб.
+                    </h3>
 
                     <p className="text-[#808080]">Российские карты</p>
                   </div>
@@ -298,7 +292,11 @@ const OrderPage = () => {
 
             <Button
               onClick={() => setOpenedPopup(true)}
-              disabled={!email.trim() || !checked}
+              disabled={
+                !email.trim() ||
+                !checked ||
+                !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+              }
               className="w-full h-14 text-lg font-semibold max-sm:text-base"
             >
               Оформить eSIM
@@ -337,7 +335,10 @@ const OrderPage = () => {
               «Спам».
             </p>
           </div>
-          <Link to="/install" className="w-full">
+          <Link
+            to={`/install/${countryId}/${tariffId}?type=${tariffType}`}
+            className="w-full"
+          >
             <Button className="mt-6 w-full h-14 text-lg font-semibold">
               Открыть данные eSIM
             </Button>

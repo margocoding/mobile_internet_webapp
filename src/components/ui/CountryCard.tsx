@@ -1,16 +1,16 @@
 import { Link } from "react-router-dom";
 import Card from "./Card";
+import { motion } from "framer-motion";
 
 interface Props {
   icon: string;
   name: string;
   startPrice: number;
   id: string;
+  onClick?: () => void;
 }
 
-import { motion } from "framer-motion";
-
-const CountryCard = ({ id, icon, name, startPrice }: Props) => {
+const CountryCard = ({ id, icon, name, startPrice, onClick }: Props) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -18,6 +18,7 @@ const CountryCard = ({ id, icon, name, startPrice }: Props) => {
       whileHover={{ y: -3 }}
       transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
       className="w-full"
+      onClick={onClick}
     >
       <Link to={`/tariff/${id}`} className="w-full">
         <Card className="flex justify-between cursor-pointer">

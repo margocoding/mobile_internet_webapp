@@ -7,56 +7,50 @@ import Toggle from "../components/ui/Toggle";
 import Discount from "../components/ui/Discount";
 import FAQ from "../components/shared/FAQ";
 import { Link, useParams } from "react-router-dom";
-import { availableCountries } from "../components/shared/hero/CountriesModal";
+import { availableCountries } from "../components/shared/CountriesModal";
+import { getDaysLabel } from "../utils/getDaysLabel";
 
 interface Tariff {
   id: number;
   gb?: string;
-  title: string;
-  price: string;
-  dayPrice: string;
-  days?: string;
-  discount?: string;
+  gbPrice?: number;
+  dayPrice: number;
+  days: number;
+  discount?: number;
   badge?: string;
 }
 
 export const unlimitedTariffs: Tariff[] = [
   {
     id: 1,
-    title: "1 день",
-    price: "200₽",
-    dayPrice: "200₽ / день",
-    discount: "-9%",
-    badge: "Для новых клиентов",
+    days: 1,
+    dayPrice: 200,
+    discount: -9,
   },
   {
     id: 2,
-    title: "3 дня",
-    price: "900₽",
-    dayPrice: "300₽ / день",
-    discount: "-13%",
-    badge: "☆ Популярный",
+    days: 3,
+    dayPrice: 300,
+    discount: -13,
   },
   {
     id: 3,
-    title: "15 дней",
-    price: "3000₽",
-    dayPrice: "200₽ / день",
-    discount: "-28%",
+    days: 7,
+    dayPrice: 300,
+    discount: -21,
   },
   {
     id: 4,
-    title: "7 дней",
-    price: "2100₽",
-    dayPrice: "300₽ / день",
-    discount: "-21%",
+    days: 15,
+    dayPrice: 200,
+    discount: -28,
+    badge: "☆ Популярный",
   },
   {
     id: 5,
-    title: "30 дней",
-    price: "6000₽",
-    dayPrice: "200₽ / день",
-    discount: "-35%",
+    days: 30,
+    dayPrice: 200,
+    discount: -35,
   },
 ];
 
@@ -64,50 +58,52 @@ export const fixedTariffs: Tariff[] = [
   {
     id: 7,
     gb: "1 GB",
-    title: "7 дней",
-    price: "200₽",
+    gbPrice: 200,
+    days: 7,
     badge: "Для новых клиентов",
-    dayPrice: "200₽ / день",
+    dayPrice: 200,
+    discount: -9,
   },
   {
     id: 8,
     gb: "3 GB",
-    title: "15 дней",
-    price: "1000₽",
+    gbPrice: 1000,
+    days: 15,
     badge: "⭐ Популярный",
-    dayPrice: "100₽ / день",
+    dayPrice: 100,
+    discount: -13,
   },
   {
     id: 9,
     gb: "10 GB",
-    title: "30 дней",
-    price: "2000₽",
-    dayPrice: "100₽ / день",
-    discount: "-16%",
+    gbPrice: 2000,
+    days: 30,
+    dayPrice: 100,
+    discount: -21,
   },
   {
     id: 10,
     gb: "20 GB",
-    title: "30 дней",
-    price: "2100₽",
-    dayPrice: "300₽ / день",
-    discount: "-22%",
+    gbPrice: 3000,
+    days: 30,
+    dayPrice: 300,
+    discount: -28,
   },
   {
     id: 11,
     gb: "30 GB",
-    title: "30 дней",
-    price: "5000₽",
-    dayPrice: "100₽ / день",
-    discount: "-30%",
+    gbPrice: 5000,
+    days: 30,
+    dayPrice: 100,
+    discount: -35,
   },
   {
     id: 12,
     gb: "50 GB",
-    title: "30 дней",
-    price: "6000₽",
-    dayPrice: "100₽ / день",
-    discount: "-41%",
+    gbPrice: 6000,
+    days: 30,
+    dayPrice: 100,
+    discount: -35,
   },
 ];
 
@@ -308,27 +304,30 @@ const TariffPage = () => {
                       >
                         <div>
                           <h3 className="font-bold text-[#2B2B2B]">
-                            {tariff.gb || tariff.title}
+                            {tariff.gb || getDaysLabel(tariff.days)}
                           </h3>
 
                           <p className="text-[#8C8C8C] mt-1">
-                            {!tariff.gb ? "∞ GB" : tariff.title}
+                            {!tariff.gb ? "∞ GB" : getDaysLabel(tariff.days)}
                           </p>
                         </div>
 
                         {/* PRICE */}
                         <div className="min-w-0">
                           <h3 className="font-bold text-[#2B2B2B]">
-                            {tariff.price}
+                            {toggleValue === "unlimited"
+                              ? tariff.dayPrice * tariff.days
+                              : tariff.gbPrice}
+                            ₽
                           </h3>
 
                           <p className="text-[#8C8C8C] text-sm mt-1">
-                            {tariff.dayPrice}
+                            {tariff.dayPrice}₽ / день
                           </p>
                         </div>
 
                         {tariff.discount && (
-                          <Discount>{tariff.discount}</Discount>
+                          <Discount>{tariff.discount}%</Discount>
                         )}
                       </Card>
                     </div>
@@ -339,8 +338,14 @@ const TariffPage = () => {
           </div>
           <div className="flex w-full justify-center">
             <Link to={`/order/${id}/${selectedTariff?.id}?type=${toggleValue}`}>
-              <Button className="px-20 py-3 text-xl max-md:text-base font-semibold">
-                Оформить eSIM — {selectedTariff ? selectedTariff.price : "0₽"}
+              <Button
+                disabled={!selectedTariff}
+                className="px-20 py-3 text-xl max-md:text-base font-semibold"
+              >
+                Оформить eSIM —{" "}
+                {selectedTariff
+                  ? `${selectedTariff.days * selectedTariff.dayPrice}₽`
+                  : "0₽"}
               </Button>
             </Link>
           </div>

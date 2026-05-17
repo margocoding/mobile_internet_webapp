@@ -5,7 +5,7 @@ import Button from "../../ui/Button";
 import Card from "../../ui/Card";
 import Chip from "../../ui/Chip";
 import Input from "../../ui/Input";
-import { availableCountries } from "./CountriesModal";
+import { availableCountries } from "../CountriesModal";
 
 const Hero = ({
   setOpenedModal,
