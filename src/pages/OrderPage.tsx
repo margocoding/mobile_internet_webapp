@@ -49,8 +49,11 @@ const OrderPage = () => {
 
   if (!tariff || !country) return null;
 
+  const price =
+    tariffType === "unlimited" ? tariff.dayPrice * tariff.days : tariff.gbPrice;
+
   const handleApplyPromo = () => {
-    const discounted = Math.round(tariff.dayPrice * tariff.days * 0.9);
+    const discounted = Math.round(price * 0.9);
 
     setDiscountedPrice(discounted);
     setPromoApplied(true);
@@ -121,13 +124,11 @@ const OrderPage = () => {
               <h3 className="text-3xl font-bold max-sm:text-2xl">
                 {promoApplied ? (
                   <div className="flex gap-3">
-                    <p className="line-through">
-                      {tariff.dayPrice * tariff.days}
-                    </p>
+                    <p className="line-through">{price}</p>
                     <p className="text-[#F8AA37]">{discountedPrice} руб.</p>
                   </div>
                 ) : (
-                  <div>{tariff.dayPrice * tariff.days} руб.</div>
+                  <div>{price} руб.</div>
                 )}
               </h3>
 
@@ -247,7 +248,7 @@ const OrderPage = () => {
                 <div className="space-y-2">
                   <div>
                     <h3 className="text-2xl font-bold">
-                      {discountedPrice || tariff.dayPrice * tariff.days} руб.
+                      {discountedPrice || price} руб.
                     </h3>
 
                     <p className="text-[#808080]">Российские карты</p>

@@ -224,6 +224,9 @@ const TariffPage = () => {
     [id],
   );
 
+  React.useEffect(() => {
+    setSelectedTariff(null);
+  }, [toggleValue]);
   if (!tariff) return null;
 
   return (
@@ -344,7 +347,7 @@ const TariffPage = () => {
               >
                 Оформить eSIM —{" "}
                 {selectedTariff
-                  ? `${selectedTariff.days * selectedTariff.dayPrice}₽`
+                  ? `${toggleValue === "unlimited" ? selectedTariff.days * selectedTariff.dayPrice : selectedTariff.gbPrice || "0"}₽`
                   : "0₽"}
               </Button>
             </Link>
