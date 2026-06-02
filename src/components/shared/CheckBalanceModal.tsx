@@ -48,7 +48,6 @@ const CheckBalanceModal = () => {
         setStep(prev => prev + 1);
     }, []);
 
-    console.log(checkBalanceCountryId);
     React.useEffect(() => {
         if (checkBalanceCountryId) {
             setStep(2)
