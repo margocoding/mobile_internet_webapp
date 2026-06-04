@@ -24,7 +24,7 @@ const Review: React.FC<Props> = ({ username, tariff, rating, text }) => {
         <header className="flex justify-between items-center">
           <div className="flex gap-3 max-md:gap-2 items-center">
             <span className="rounded-full bg-[#F8AA37] text-white aspect-square h-10 w-10 max-md:h-8 max-md:w-8 flex items-center justify-center font-Bold">
-              B
+              {username.split(' ').map(w => w[0]).join('')}
             </span>
             <div>
               <div className="font-semibold text-xl max-md:text-sm">
@@ -34,7 +34,7 @@ const Review: React.FC<Props> = ({ username, tariff, rating, text }) => {
                 Тариф:{" "}
                 <span>
                   <img
-                    className="w-4 h-4 max-md:w-3 max-md:h-3"
+                    className="w-4 h-4 max-md:w-3 max-md:h-3 object-cover rounded-full"
                     src={tariff.countryIcon}
                     alt={tariff.countryName}
                   />

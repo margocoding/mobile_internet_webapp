@@ -54,7 +54,7 @@ const WhyUs = ({
         className="text-4xl max-md:text-2xl text-center font-bold"
       >
         Почему в путешествие нужно взять eSIM от{" "}
-        <span className="text-[#F8AA37]">Name</span>?
+        <span className="text-[#F8AA37]">Polet Mobile</span>?
       </motion.h1>
 
       <motion.div
