@@ -66,22 +66,21 @@ const FAQ = ({
         </motion.h1>
 
         <motion.main variants={fadeInUp} className="space-y-3">
-            {questions.map((item, index) => (
-                <Question key={index} question={item.question} answer={item.answer}/>))}
+            {questions.map((item, index) => (<Question key={index} question={item.question} answer={item.answer}/>))}
 
             <Question question={'Я не нашел ответа на свой вопрос'} answer={<div className={'space-y-3'}>
                 <p>Ответим на любые ваши вопросы:</p>
 
                 <div className={'flex gap-3 '}>
-                      <span className={'flex gap-3 font-semibold items-center text-black'}>
-                        <img src={"/icons/footer/email.svg"}/>
-                        @namesupport
-                      </span>
-
                     <span className={'flex gap-3 font-semibold items-center text-black'}>
                         <img src={"/icons/footer/telegram.svg"}/>
                         mail@gmail.com
                       </span>
+
+                    <span className={'flex gap-3 font-semibold items-center text-black'}>
+                        <img src={"/icons/footer/email.svg"}/>
+                        @namesupport
+                    </span>
                 </div>
             </div>}/>
         </motion.main>

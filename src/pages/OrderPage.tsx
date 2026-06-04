@@ -157,6 +157,7 @@ const OrderPage = () => {
                                     round="xl"
                                     rightIcon={
                                         <Button
+                                            disabled={!promoCode.trim()}
                                             onClick={handleApplyPromo}
                                             className="aspect-square rounded-xl h-11 flex justify-center items-center"
                                         >

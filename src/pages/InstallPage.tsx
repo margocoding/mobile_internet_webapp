@@ -74,7 +74,7 @@ const InstallPage = () => {
     const tariffId = useParams().tariff_id;
     const countryId = useParams().country_id;
 
-    const {setCheckBalanceModal, setCheckBalanceCountryId} = useTariffStore();
+    const {setCheckBalanceModal, setCheckBalanceCountryId, setCheckBalanceTariffType, setCheckBalanceTariffId} = useTariffStore();
 
     const tariff = React.useMemo(() => {
         if (!tariffId || !tariffType) return null;
@@ -131,12 +131,12 @@ const InstallPage = () => {
                                     <img
                                         src={country.miniIcon || "/icons/hero_countries_modal/vietnam.svg"}
                                         alt="turkey"
-                                        className="w-8 h-8 rounded-full"
+                                        className="w-8 h-8 rounded-full object-cover"
                                     />
                                 </div>
 
                                 <h3 className="mt-4 text-4xl font-extrabold max-md:text-2xl">
-                                    {tariff.gb || "∞ GB"} • {getDaysLabel(tariff.days)}
+                                    {tariff.gb === Infinity ? "∞" : tariff.gb} GB • {getDaysLabel(tariff.days)}
                                 </h3>
 
                                 <div className="mt-5">
@@ -233,6 +233,8 @@ const InstallPage = () => {
                             onClick={() => {
                                 setCheckBalanceModal(true);
                                 setCheckBalanceCountryId(country.id)
+                                setCheckBalanceTariffId(tariff.id)
+                                setCheckBalanceTariffType(tariffType as 'unlimited' | 'fixed')
                             }}
                             className="
                   

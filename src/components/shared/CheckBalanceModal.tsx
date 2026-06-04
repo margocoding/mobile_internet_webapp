@@ -1,16 +1,17 @@
 import Modal from "../ui/Modal.tsx";
-import {useTariffStore} from "../../store/tariffStore.ts";
+import { useTariffStore } from "../../store/tariffStore.ts";
 import Input from "../ui/Input.tsx";
 import Button from "../ui/Button.tsx";
 import React from "react";
 import Chip from "../ui/Chip.tsx";
 import ProgressBar from "../ui/ProgressBar.tsx";
-import {getDaysLeft} from "../../utils/getDaysLeft.ts";
-import {getDaysLabel} from "../../utils/getDaysLabel.ts";
+import { getDaysLeft } from "../../utils/getDaysLeft.ts";
+import { getDaysLabel } from "../../utils/getDaysLabel.ts";
 import Discount from "../ui/Discount.tsx";
-import {type Tariff, unlimitedTariffs} from "../../pages/TariffPage.tsx";
-import {useNavigate} from "react-router-dom";
-import {availableCountries} from "./CountriesModal.tsx";
+import { fixedTariffs, type Tariff, unlimitedTariffs } from "../../pages/TariffPage.tsx";
+import { useNavigate } from "react-router-dom";
+import { availableCountries } from "./CountriesModal.tsx";
+import Popup from "../ui/Popup.tsx";
 
 const tariffData = {
     country: {
@@ -18,48 +19,43 @@ const tariffData = {
         name: 'Турция',
         icon: '/icons/hero_countries_modal/turkey.svg'
     },
-    isActive: false,
-    tariffType: 'unlimited',
+    isActive: true,
+    type: 'unlimited',
     endDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-    totalGb: Infinity,
+    gb: Infinity,
     usedGb: 0,
 };
 
-const tariffs = [
-    {id: 1, days: 1, dayPrice: 300},
-    {id: 2, days: 3, dayPrice: 250, discount: 13},
-    {id: 3, days: 7, dayPrice: 200, discount: 21},
-    {id: 4, days: 15, dayPrice: 150, discount: 28, isPopular: true},
-    {id: 5, days: 30, dayPrice: 120, discount: 35},
-];
-
 const CheckBalanceModal = () => {
     const [step, setStep] = React.useState<number>(1);
-    const [selectedTariff, setSelectedTariff] = React.useState<Tariff>(tariffs[3]);
-
+    const [selectedTariff, setSelectedTariff] = React.useState<Tariff | null>(null);
+    const [iccid, setIccid] = React.useState<string>('');
+    const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
 
     const navigate = useNavigate();
 
-    const {checkBalanceModal, setCheckBalanceModal, checkBalanceCountryId} = useTariffStore();
+    const { checkBalanceModal, setCheckBalanceModal, checkBalanceCountryId, checkBalanceTariffId, checkBalanceTariffType } = useTariffStore();
 
     const checkCountry = React.useMemo(() => availableCountries.find(country => country.id === checkBalanceCountryId) || tariffData.country, [checkBalanceCountryId, tariffData.country]);
+    const checkTariff = React.useMemo(() => (checkBalanceTariffType === 'unlimited' ? unlimitedTariffs : fixedTariffs).find(tariff => tariff.id === checkBalanceTariffId), [checkBalanceTariffType, checkBalanceTariffId])
 
     const handleNextStep = React.useCallback(() => {
         setStep(prev => prev + 1);
-    }, []);
+        setIccid('')
 
-    React.useEffect(() => {
-        if (checkBalanceCountryId) {
-            setStep(2)
-        }
-    }, [checkBalanceCountryId])
-
+    }, [step]);
 
     const progress = React.useMemo(() =>
-            tariffData.tariffType === "unlimited"
-                ? 100
-                : ((tariffData.totalGb - tariffData.usedGb) / tariffData.totalGb) * 100,
-        [tariffData]);
+        checkBalanceTariffType === 'unlimited'
+            ? 100
+            : ((checkTariff?.gb / 2) / checkTariff?.gb) * 100,
+        [tariffData, checkTariff]);
+
+    React.useEffect(() => {
+        if (checkBalanceCountryId && checkTariff) {
+            setStep(2)
+        }
+    }, [checkBalanceCountryId, checkTariff])
 
     const getStepContent = React.useCallback((step: number) => {
         switch (step) {
@@ -71,13 +67,13 @@ const CheckBalanceModal = () => {
                             <div className="flex w-full items-center justify-between">
                                 <span className="flex gap-3 items-center">
                                     <img className="rounded-xl h-9 max-md:h-7" src={checkCountry.icon}
-                                         alt={checkCountry.name}/>
+                                        alt={checkCountry.name} />
                                     <p className="text-[#333] text-xl max-md:text-sm font-semibold whitespace-nowrap">
                                         eSim {checkCountry.name}
                                     </p>
                                 </span>
 
-                                <Chip className="text-[#F8AA37] md:px-7 max-md:px-3 max-md:text-sm py-1">
+                                <Chip className={`text-[#F8AA37] md:px-7 max-md:px-3 max-md:text-sm py-1 ${tariffData.isActive ? 'bg-[#F8AA37] text-white' : ''}`}>
                                     {tariffData.isActive ? 'Тариф активен' : 'Тариф неактивен'}
                                 </Chip>
                             </div>
@@ -85,11 +81,11 @@ const CheckBalanceModal = () => {
                             <div className="space-y-1">
                                 <div className="flex w-full justify-between text-xl max-md:text-sm">
                                     <p className="font-semibold text-[#333]">Безлимитный интернет</p>
-                                    <p className="text-[#808080] whitespace-nowrap">∞ GB</p>
+                                    <p className="text-[#808080] whitespace-nowrap">{checkTariff?.gb === Infinity ? '∞' : checkTariff.gb} GB</p>
                                 </div>
-                                <ProgressBar value={progress}/>
+                                <ProgressBar value={progress} />
                                 <p className="mt-2 text-[#808080] text-sm">
-                                    Действует еще {getDaysLeft(tariffData.endDate)} дней
+                                    Действует еще {getDaysLeft(checkTariff.days ? new Date(Date.now() + checkTariff.days * 24 * 60 * 60 * 1000) : tariffData.endDate)} дней
                                 </p>
                             </div>
                         </div>
@@ -101,7 +97,7 @@ const CheckBalanceModal = () => {
                             </h3>
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                {unlimitedTariffs.map((tariff) => {
+                                {(checkBalanceTariffType === 'fixed' ? fixedTariffs : unlimitedTariffs).map((tariff) => {
                                     const isSelected = selectedTariff?.id === tariff.id;
 
                                     return (
@@ -126,10 +122,14 @@ const CheckBalanceModal = () => {
                                                 <div>
                                                     <h3 className="text-[#2B2B2B] flex gap-1">
                                                         <p className={'text-xl font-bold'}>
-                                                            {tariff.dayPrice * tariff.days}₽
+                                                            {checkBalanceTariffType === "unlimited"
+                                                                ? tariff.dayPrice * tariff.days
+                                                                : tariff.gbPrice * tariff.gb}₽
                                                         </p>
-                                                        <p
-                                                            className={'line-through text-xs text-[#808080]'}>{Math.round(tariff.dayPrice * tariff.days * (1 - (tariff.discount / 100)))}₽</p>
+                                                        {tariff.oldPrice &&
+                                                            <p
+                                                                className={'line-through text-xs text-[#808080]'}>{tariff.oldPrice}₽</p>
+                                                        }
                                                     </h3>
                                                     <p className="text-[#8C8C8C] text-sm">
                                                         {tariff.dayPrice}₽ / день
@@ -146,7 +146,7 @@ const CheckBalanceModal = () => {
                                                     <div
                                                         className={`w-5 h-5 absolute right-2 top-2 rounded-full border flex items-center justify-center transition-all border-[#F5A623]`}>
                                                         {isSelected && (
-                                                            <div className="w-3 h-3 rounded-full bg-[#F5A623]"/>
+                                                            <div className="w-3 h-3 rounded-full bg-[#F5A623]" />
                                                         )}
                                                     </div>
                                                 </div>
@@ -162,14 +162,16 @@ const CheckBalanceModal = () => {
                         <div className={'flex w-full justify-center h-17 max-md:h-13'}>
 
                             <Button
+                                disabled={!selectedTariff}
                                 className={'font-semibold md:h-15 md:w-95 max-md:w-full'}
                                 onClick={() => {
-                                    setStep(1)
-                                    navigate(`/order/${tariffData.country.id}/${selectedTariff?.id}?type=${tariffData.tariffType}`)
-                                    setCheckBalanceModal(false)
+                                    setIsSuccess(true);
+                                    setStep(1);
+                                    // navigate(`/order/${tariffData.country.id}/${selectedTariff?.id}?type=${tariffData.tariffType}`)
+                                    // setCheckBalanceModal(false)
                                 }}
                             >
-                                Продлить eSIM — {selectedTariff.dayPrice * selectedTariff.days}₽
+                                Продлить eSIM — {selectedTariff ? selectedTariff.dayPrice * selectedTariff.days : 0}₽
                             </Button>
                         </div>
                     </>
@@ -179,6 +181,9 @@ const CheckBalanceModal = () => {
                 return (
                     <div className="space-y-5 max-w-125 mx-auto">
                         <Input
+                            type="number"
+                            value={iccid}
+                            onChange={(e) => setIccid(e.target.value)}
                             label="Введите ваш ICCID (номер eSIM):"
                             placeholder="123456789100000"
                             round="xl"
@@ -190,29 +195,52 @@ const CheckBalanceModal = () => {
                         </p>
 
                         <div className={'flex w-full justify-center h-17 max-md:h-13'}>
-                            <Button onClick={handleNextStep} className={'font-semibold md:h-15 md:w-95 max-md:w-full'}>
+                            <Button disabled={!iccid.trim()} onClick={handleNextStep}
+                                className={'font-semibold md:h-15 md:w-95 max-md:w-full'}>
                                 Продолжить
                             </Button>
                         </div>
                     </div>
                 );
         }
-    }, [handleNextStep, progress, selectedTariff]);
+    }, [checkCountry.icon, checkCountry.name, progress, selectedTariff?.dayPrice, selectedTariff?.days, selectedTariff?.id, iccid, handleNextStep, navigate, setCheckBalanceModal]);
+
+
+    if (isSuccess) {
+        return <Popup opened={checkBalanceModal} setOpened={setCheckBalanceModal}>
+            <div className="flex flex-col items-center gap-3 justify-center h-full">
+                <img src="/icons/esim.svg" alt="esim" />
+
+                <h2 className="text-center font-semibold text-2xl">Ваш тариф успешно продлён</h2>
+
+                <Button className="w-full h-13 font-semibold" onClick={() => {
+                    navigate(`/install/${tariffData.country.id}/${selectedTariff?.id}?type=${checkBalanceTariffType}`);
+                    setCheckBalanceModal(false);
+                    setIsSuccess(false);
+                }}>Посмотреть детали</Button>
+            </div>
+        </Popup>
+    }
 
     return (
         <Modal
-            className={`max-[1024px]:h-dvh
+            className={`max-[1024px]:screen
     max-[1024px]:max-w-full
     max-[1024px]:rounded-none
-    max-[1024px]:p-5`}
+    max-[1024px]:p-5
+    `}
             header={
-                <h2 className="text-center ml-16 text-3xl max-md:text-xl font-semibold">
-                    Проверка баланса <br className="max-md:hidden"/>
+                <h2 className="text-center ml-16 max-md:mt-16 text-3xl max-md:text-xl font-semibold">
+                    Проверка баланса <br className="max-md:hidden" />
                     и пополнение eSim
                 </h2>
             }
             opened={checkBalanceModal}
-            setOpened={setCheckBalanceModal}
+            setOpened={(data) => {
+                setCheckBalanceModal(data);
+                setStep(1)
+                setIccid('');
+            }}
         >
             <div className="mt-3 space-y-5">
                 {getStepContent(step)}

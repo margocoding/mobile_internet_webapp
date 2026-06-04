@@ -17,7 +17,7 @@ const ways = [
 
 const InstallGuide = () => {
     return (
-        <section id="how_to_install" className="space-y-10">
+        <section id="how_to_install" className="space-y-5">
             <header>
                 <h1 className="text-4xl max-md:text-2xl text-center font-semibold">
                     Как подключить eSIM
@@ -28,7 +28,7 @@ const InstallGuide = () => {
                 {ways.map((way, index) => (
                     <Card
                         key={index}
-                        className="space-y-3 h-117 min-w-60 relative py-5 flex flex-col items-center"
+                        className="space-y-3 h-117 min-w-80 relative py-5 flex flex-col items-center"
                     >
                         <div
                             className="w-12.5 flex justify-center items-center text-white rounded-full aspect-square text-xl bg-[#F8AA37]">
