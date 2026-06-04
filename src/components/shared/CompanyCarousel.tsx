@@ -19,7 +19,7 @@ const CompanyCarousel = () => {
     return (
         <div className="space-y-8 overflow-hidden">
             <p className="text-center max-w-2xl mx-auto text-[#808080]">
-                Более 500+ мобильных операторов сотрудничают с eSim Name,
+                Более 500+ мобильных операторов сотрудничают с Polet Mobile,
                 чтобы у вас был стабильный мобильный интернет в 162 странах
             </p>
 

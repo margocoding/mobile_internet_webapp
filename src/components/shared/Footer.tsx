@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { fadeInUp } from "../ui/animation";
 import { useTariffStore } from "../../store/tariffStore";
+import Logo from "../ui/Logo";
 
 const Footer = () => {
   const { setModal } = useTariffStore();
@@ -24,7 +25,7 @@ const Footer = () => {
         </div>{" "}
       </div>
 
-      <h1 className="text-xl text-[#808080]">ЛОГОТИП</h1>
+      <h1 className="text-xl text-[#808080]"><Logo /></h1>
       <div className="flex max-[600px]:flex-col gap-10 w-full justify-between">
         <div className="flex max-[600px]:flex-col gap-10">
           <span className="space-y-3">
