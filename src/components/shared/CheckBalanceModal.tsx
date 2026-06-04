@@ -1,17 +1,16 @@
-import Modal from "../ui/Modal.tsx";
-import { useTariffStore } from "../../store/tariffStore.ts";
-import Input from "../ui/Input.tsx";
-import Button from "../ui/Button.tsx";
 import React from "react";
-import Chip from "../ui/Chip.tsx";
-import ProgressBar from "../ui/ProgressBar.tsx";
-import { getDaysLeft } from "../../utils/getDaysLeft.ts";
-import { getDaysLabel } from "../../utils/getDaysLabel.ts";
-import Discount from "../ui/Discount.tsx";
-import { fixedTariffs, type Tariff, unlimitedTariffs } from "../../pages/TariffPage.tsx";
 import { useNavigate } from "react-router-dom";
+import { fixedTariffs, type Tariff, unlimitedTariffs } from "../../pages/TariffPage.tsx";
+import { useTariffStore } from "../../store/tariffStore.ts";
+import { getDaysLabel } from "../../utils/getDaysLabel.ts";
+import { getDaysLeft } from "../../utils/getDaysLeft.ts";
+import Button from "../ui/Button.tsx";
+import Chip from "../ui/Chip.tsx";
+import Discount from "../ui/Discount.tsx";
+import Input from "../ui/Input.tsx";
+import Modal from "../ui/Modal.tsx";
+import ProgressBar from "../ui/ProgressBar.tsx";
 import { availableCountries } from "./CountriesModal.tsx";
-import Popup from "../ui/Popup.tsx";
 
 const tariffData = {
     country: {
@@ -30,7 +29,6 @@ const CheckBalanceModal = () => {
     const [step, setStep] = React.useState<number>(1);
     const [selectedTariff, setSelectedTariff] = React.useState<Tariff | null>(null);
     const [iccid, setIccid] = React.useState<string>('');
-    const [isSuccess, setIsSuccess] = React.useState<boolean>(false);
 
     const navigate = useNavigate();
 
@@ -166,13 +164,12 @@ const CheckBalanceModal = () => {
                                 disabled={!selectedTariff}
                                 className={'font-semibold md:h-15 md:w-95 max-md:w-full'}
                                 onClick={() => {
-                                    setIsSuccess(true);
                                     setStep(1);
-                                    // navigate(`/order/${tariffData.country.id}/${selectedTariff?.id}?type=${tariffData.tariffType}`)
-                                    // setCheckBalanceModal(false)
+                                    navigate(`/order/${tariffData.country.id}/${selectedTariff?.id}?type=${checkBalanceTariffType || 'unlimited'}&orderType=renew`)
+                                    setCheckBalanceModal(false)
                                 }}
                             >
-                                Продлить eSIM — {selectedTariff ? selectedTariff.dayPrice * selectedTariff.days : 0}₽
+                                Продлить eSIM — {selectedTariff ? selectedTariff.dayPrice ? selectedTariff.dayPrice * selectedTariff.days : selectedTariff.gbPrice * selectedTariff.gb : 0}₽
                             </Button>
                         </div>
                     </>
@@ -205,23 +202,6 @@ const CheckBalanceModal = () => {
                 );
         }
     }, [checkCountry.icon, checkCountry.name, progress, selectedTariff?.dayPrice, selectedTariff?.days, selectedTariff?.id, iccid, handleNextStep, navigate, setCheckBalanceModal]);
-
-
-    if (isSuccess) {
-        return <Popup opened={checkBalanceModal} setOpened={setCheckBalanceModal}>
-            <div className="flex flex-col items-center gap-3 justify-center h-full">
-                <img src="/icons/esim.svg" alt="esim" />
-
-                <h2 className="text-center font-semibold text-2xl">Ваш тариф успешно продлён</h2>
-
-                <Button className="w-full h-13 font-semibold" onClick={() => {
-                    navigate(`/install/${tariffData.country.id}/${selectedTariff?.id}?type=${checkBalanceTariffType}`);
-                    setCheckBalanceModal(false);
-                    setIsSuccess(false);
-                }}>Посмотреть детали</Button>
-            </div>
-        </Popup>
-    }
 
     return (
         <Modal
