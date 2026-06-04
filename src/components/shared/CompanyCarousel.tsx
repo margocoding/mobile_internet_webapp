@@ -30,7 +30,7 @@ const CompanyCarousel = () => {
                             key={`${company}-${index}`}
                             src={`/images/partners/${company}`}
                             alt={company.replace('.png', '')}
-                            className="h-8 w-auto shrink-0 cursor-pointer"
+                            className="carousel-item h-8 w-auto shrink-0 cursor-pointer"
                             initial={{
                                 filter: 'grayscale(100%)',
                             }}
