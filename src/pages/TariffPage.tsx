@@ -259,14 +259,13 @@ const TariffPage = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.75fr] gap-4 sm:gap-6">
                         {/* LEFT  bg-[url('/images/tariff/background.png')]*/}
                         <div className="bg-cover bg-center rounded-2xl overflow-hidden md:min-h-105 lg:h-full">
-                            <div
-                                className="h-full space-y-5 px-5 max-sm:px-8 md:py-8 max-md:p-3 flex md:flex-col max-md:justify-between justify-center items-center text-center">
+                            <div className="flex items-center justify-center gap-3 h-full md:flex-col text-center">
                                 <img
                                     src={tariff.icon}
                                     alt="Turkey"
-                                    className="w-45 max-md:w-20 md:mt-6 sm:mt-10 rounded-2xl"
+                                    className="w-45 max-md:w-15 rounded-xl"
                                 />
-                                <h2 className="text-white text-3xl font-bold max-md:text-xl">
+                                <h2 className="m-0 text-white text-3xl max-md:text-xl font-bold">
                                     eSIM {tariff.name}
                                 </h2>
                             </div>
