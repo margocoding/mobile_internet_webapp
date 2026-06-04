@@ -34,7 +34,7 @@ const CheckBalanceModal = () => {
 
     const navigate = useNavigate();
 
-    const { checkBalanceModal, setCheckBalanceModal, checkBalanceCountryId, checkBalanceTariffId, checkBalanceTariffType } = useTariffStore();
+    const { checkBalanceModal, setCheckBalanceModal, checkBalanceCountryId, checkBalanceTariffId, checkBalanceTariffType, setCheckBalanceCountryId, setCheckBalanceTariffId, setCheckBalanceTariffType } = useTariffStore();
 
     const checkCountry = React.useMemo(() => availableCountries.find(country => country.id === checkBalanceCountryId) || tariffData.country, [checkBalanceCountryId, tariffData.country]);
     const checkTariff = React.useMemo(() => (checkBalanceTariffType === 'unlimited' ? unlimitedTariffs : fixedTariffs).find(tariff => tariff.id === checkBalanceTariffId), [checkBalanceTariffType, checkBalanceTariffId])
@@ -81,11 +81,11 @@ const CheckBalanceModal = () => {
                             <div className="space-y-1">
                                 <div className="flex w-full justify-between text-xl max-md:text-sm">
                                     <p className="font-semibold text-[#333]">Безлимитный интернет</p>
-                                    <p className="text-[#808080] whitespace-nowrap">{checkTariff?.gb === Infinity ? '∞' : checkTariff.gb} GB</p>
+                                    <p className="text-[#808080] whitespace-nowrap">{checkTariff?.gb === Infinity ? '∞' : checkTariff?.gb} GB</p>
                                 </div>
                                 <ProgressBar value={progress} />
                                 <p className="mt-2 text-[#808080] text-sm">
-                                    Действует еще {getDaysLeft(checkTariff.days ? new Date(Date.now() + checkTariff.days * 24 * 60 * 60 * 1000) : tariffData.endDate)} дней
+                                    Действует еще {getDaysLeft(checkTariff?.days ? new Date(Date.now() + checkTariff.days * 24 * 60 * 60 * 1000) : tariffData.endDate)} дней
                                 </p>
                             </div>
                         </div>
@@ -122,9 +122,10 @@ const CheckBalanceModal = () => {
                                                 <div>
                                                     <h3 className="text-[#2B2B2B] flex gap-1">
                                                         <p className={'text-xl font-bold'}>
-                                                            {checkBalanceTariffType === "unlimited"
-                                                                ? tariff.dayPrice * tariff.days
-                                                                : tariff.gbPrice * tariff.gb}₽
+                                                            {checkBalanceTariffType === "fixed"
+                                                                ? tariff.gbPrice * tariff.gb
+                                                                : tariff.dayPrice * tariff.days
+                                                                }₽
                                                         </p>
                                                         {tariff.oldPrice &&
                                                             <p
@@ -224,7 +225,7 @@ const CheckBalanceModal = () => {
 
     return (
         <Modal
-            className={`max-[1024px]:h-screen
+            className={`max-[1024px]:min-h-screen
     max-[1024px]:max-w-full
     max-[1024px]:rounded-none
     max-[1024px]:p-5
@@ -239,6 +240,9 @@ const CheckBalanceModal = () => {
             setOpened={(data) => {
                 setCheckBalanceModal(data);
                 setStep(1)
+                setCheckBalanceCountryId(null)
+                setCheckBalanceTariffId(null)
+                setCheckBalanceTariffType(null)
                 setIccid('');
             }}
         >

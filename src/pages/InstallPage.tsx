@@ -231,10 +231,10 @@ const InstallPage = () => {
                         <Button
                             variant="outline"
                             onClick={() => {
-                                setCheckBalanceModal(true);
                                 setCheckBalanceCountryId(country.id)
                                 setCheckBalanceTariffId(tariff.id)
                                 setCheckBalanceTariffType(tariffType as 'unlimited' | 'fixed')
+                                setCheckBalanceModal(true);
                             }}
                             className="
                   
