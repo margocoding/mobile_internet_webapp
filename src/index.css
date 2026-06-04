@@ -37,26 +37,40 @@ input[type="number"]::-webkit-outer-spin-button {
     }
 }
 
+.carousel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
 .carousel-track {
     display: flex;
     align-items: center;
-    gap: 64px;
-    width: max-content;
-    
+
+    /* вместо gap */
+    width: fit-content;
+
     animation: scroll 25s linear infinite;
-    
-    transform: translate3d(0, 0, 0);
-    -webkit-transform: translate3d(0, 0, 0);
+
+    will-change: transform;
+
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
-    will-change: transform;
-    
-    position: relative;
-    contain: layout style paint;
+
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
 }
 
 .carousel-track.paused {
     animation-play-state: paused;
+}
+
+.carousel-item {
+    flex-shrink: 0;
+    margin-right: 64px;
 }
 
 @keyframes scroll {
