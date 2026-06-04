@@ -88,7 +88,7 @@ const Modal = ({
                             </div>
                         </div>
 
-                        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
+                        <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain max-md:pb-5">
                             {children}
                         </div>
                     </motion.div>
