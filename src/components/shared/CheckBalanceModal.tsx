@@ -224,7 +224,7 @@ const CheckBalanceModal = () => {
 
     return (
         <Modal
-            className={`max-[1024px]:screen
+            className={`max-[1024px]:h-screen
     max-[1024px]:max-w-full
     max-[1024px]:rounded-none
     max-[1024px]:p-5
