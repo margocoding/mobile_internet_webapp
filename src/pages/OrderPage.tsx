@@ -102,7 +102,7 @@ const OrderPage = () => {
                                     />
 
                                     <p className="text-[#333333] font-semibold">
-                                        {tariff.gb || "∞"} GB
+                                        {tariff.gb === Infinity ? "∞" : tariff.gb} GB
                                     </p>
                                 </div>
 

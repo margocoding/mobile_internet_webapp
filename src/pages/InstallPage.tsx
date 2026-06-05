@@ -135,7 +135,7 @@ const InstallPage = () => {
                                     />
                                 </div>
 
-                                <h3 className="mt-4 text-4xl font-extrabold max-md:text-2xl">
+                                <h3 className="mt-4 text-4xl font-bold max-md:text-2xl">
                                     {tariff.gb === Infinity ? "∞" : tariff.gb} GB • {getDaysLabel(tariff.days)}
                                 </h3>
 

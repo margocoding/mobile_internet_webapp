@@ -18,7 +18,7 @@ const Reviews = ({reviews}: { reviews: Review[] }) => {
     return (
         <motion.section
             id="reviews"
-            className="space-y-10"
+            className="space-y-10 max-w-5xl mx-auto"
             initial="hidden"
             animate="visible"
             variants={fadeInUpStagger}

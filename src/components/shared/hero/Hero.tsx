@@ -22,7 +22,7 @@ const Hero = ({
         >
             <motion.h1
                 variants={fadeInUp}
-                className="text-6xl max-[762px]:text-3xl font-extrabold z-10 text-center"
+                className="text-6xl max-[762px]:text-3xl font-bold z-10 text-center"
             >
                 Мобильный интернет <br /> за границей для вас <br /> и ваших близких
             </motion.h1>
