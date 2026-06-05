@@ -15,14 +15,14 @@ const Hero = ({
     const navigate = useNavigate();
     return (
         <motion.div
-            className="text-white max-w-5xl mx-auto space-y-3 flex min-[762px]:h-225 flex-col items-center py-10 relative"
+            className="text-white max-w-5xl mx-auto space-y-3 flex min-[762px]:h-225 max-[762px]:h-125 flex-col items-center py-10 relative overflow-hidden"
             initial="hidden"
             animate="visible"
             variants={fadeInUpStagger}
         >
             <motion.h1
                 variants={fadeInUp}
-                className="text-6xl max-[762px]:text-3xl font-bold z-10 text-center"
+                className="text-6xl max-[762px]:text-3xl font-extrabold z-10 text-center"
             >
                 Мобильный интернет <br /> за границей для вас <br /> и ваших близких
             </motion.h1>
@@ -35,7 +35,7 @@ const Hero = ({
             </motion.div>
 
             <motion.div variants={fadeInUp} className="z-10 mt-5">
-                <Card className="space-y-3 z-10 mx-4 p-5 rounded-4xl">
+                <Card className="space-y-3 z-10 mx-4 p-5 rounded-4xl shadow-none">
                     <Input
                         leftIcon={<img src="/icons/search.svg" alt="Search" />}
                         options={availableCountries.map((country) => ({
@@ -76,13 +76,15 @@ const Hero = ({
                         </Button>
                     </div>
                 </Card>
-            </motion.div>
+            </motion.div>  
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 min-[762px]:w-full max-[762px]:w-115 flex justify-center overflow-hidden">
             <motion.img
                 variants={fadeInUp}
                 src="/images/earth.png"
                 alt="Earth"
-                className="absolute bottom-0 left-1/2 -translate-x-1/2 min-[762px]:w-full max-[762px]:w-235"
+                className=""
             />
+            </div>
         </motion.div>
     );
 };

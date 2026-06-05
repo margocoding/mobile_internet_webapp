@@ -28,13 +28,13 @@ const InstallGuide = () => {
                 {ways.map((way, index) => (
                     <Card
                         key={index}
-                        className="space-y-3 h-117 min-w-80 relative py-5 flex flex-col items-center"
+                        className="space-y-3 h-117 max-md:h-90 min-w-50 relative py-5 flex flex-col items-center"
                     >
                         <div
                             className="w-12.5 flex justify-center items-center text-white rounded-full aspect-square text-xl bg-[#F8AA37]">
                             {index + 1}
                         </div>
-                        <p className="text-center text-[#333333] font-medium text-xl">
+                        <p className="text-center text-[#333333] font-semibold text-xl max-md:text-sm">
                             {way.text}
                         </p>
                         <img

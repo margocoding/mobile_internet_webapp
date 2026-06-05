@@ -46,7 +46,7 @@ const Modal = ({
                     className="
             fixed inset-0 z-50
             flex items-center justify-center
-
+            max-md:items-start
             bg-black/10
             p-10
             text-black
