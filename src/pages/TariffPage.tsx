@@ -27,7 +27,6 @@ export const unlimitedTariffs: Tariff[] = [
         id: 1,
         days: 1,
         dayPrice: 300,
-        discount: -9,
         gb: Infinity
     },
     {
@@ -73,7 +72,6 @@ export const fixedTariffs: Tariff[] = [
         days: 7,
         badge: "Для новых клиентов",
         dayPrice: 0,
-        discount: -9,
     },
     {
         id: 8,
@@ -81,7 +79,7 @@ export const fixedTariffs: Tariff[] = [
         gbPrice: 150,
         days: 15,
         dayPrice: 0,
-        discount: -13,
+        discount: -12,
         oldPrice: 750,
     },
     {
@@ -91,7 +89,7 @@ export const fixedTariffs: Tariff[] = [
         days: 30,
         isPopular: true,
         dayPrice: 0,
-        discount: -21,
+        discount: -18,
         oldPrice: 750,
     },
     {
@@ -100,7 +98,7 @@ export const fixedTariffs: Tariff[] = [
         gbPrice: 90,
         days: 30,
         dayPrice: 0,
-        discount: -28,
+        discount: -22,
         oldPrice: 750,
     },
     {
@@ -109,7 +107,7 @@ export const fixedTariffs: Tariff[] = [
         gbPrice: 80,
         days: 30,
         dayPrice: 0,
-        discount: -35,
+        discount: -30,
         oldPrice: 750,
     },
     {
@@ -118,7 +116,7 @@ export const fixedTariffs: Tariff[] = [
         gbPrice: 70,
         days: 30,
         dayPrice: 0,
-        discount: -35,
+        discount: -47,
         oldPrice: 750,
     },
 ];
