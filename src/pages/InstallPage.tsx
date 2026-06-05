@@ -116,12 +116,12 @@ const InstallPage = () => {
                                       "
                         >
                             <div className="flex flex-col items-center text-center">
-                                <p className={'text-[#319F3E] flex gap-1 items-center'}>
+                                <p className={'text-[#F8AA37] flex gap-1 items-center'}>
                                     <svg className={'h-2 w-2'} width="6" height="6" viewBox="0 0 6 6" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="3" cy="3" r="3" fill="#319F3E"/>
+                                        <circle cx="3" cy="3" r="3" fill="currentColor"/>
                                     </svg>
-                                    Активна
+                                    Не активна
                                 </p>
                                 <div className="flex items-center gap-3 ">
                                     <h2 className="text-4xl font-medium max-md:text-2xl">

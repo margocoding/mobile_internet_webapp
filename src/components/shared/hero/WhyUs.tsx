@@ -51,7 +51,7 @@ const WhyUs = ({
     >
       <motion.h1
         variants={fadeInUp}
-        className="text-4xl max-md:text-2xl text-center font-bold"
+        className="text-4xl max-[762px]:text-2xl max-[400px]:text-xl text-center font-bold"
       >
         Почему в путешествие нужно взять eSIM от{" "}
         <span className="text-[#F8AA37]">Polet Mobile</span>?

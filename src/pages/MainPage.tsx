@@ -23,7 +23,7 @@ export default function MainPage() {
                 <Hero setOpenedModal={setModal}/>
             </div>
             <div
-                className="bg-white -mt-80 max-[950px]:-mt-60 px-5 max-[762px]:-mt-7 pt-10 relative rounded-t-[35px] space-y-15">
+                className="bg-white -mt-80 max-[950px]:-mt-60 px-5 max-[762px]:px-3 max-[762px]:-mt-10 pt-10 relative rounded-t-[35px] space-y-15">
                 <div className={'max-w-5xl mx-auto space-y-10'}>
 
                     <WhyUs setOpenedModal={setModal}/>

@@ -18,7 +18,7 @@ const tariffData = {
         name: 'Турция',
         icon: '/icons/hero_countries_modal/turkey.svg'
     },
-    isActive: true,
+    isActive: false,
     type: 'unlimited',
     endDate: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
     gb: Infinity,
@@ -107,7 +107,7 @@ const CheckBalanceModal = () => {
 
 
                                             <div
-                                                className={`grid grid-cols-[minmax(90px,120px)_1fr_auto] items-center gap-4 border shadow-none rounded-2xl p-4 relative border-[#F5A623]`}>
+                                                className={`grid ${isSelected && 'bg-[#FDF8F5]'} grid-cols-[minmax(90px,120px)_1fr_auto] items-center gap-4 border shadow-none rounded-2xl p-4 relative border-[#F5A623]`}>
 
                                                 {/* Основной контент */}
                                                 <div>

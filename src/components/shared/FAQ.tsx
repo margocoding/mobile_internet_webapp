@@ -71,15 +71,15 @@ const FAQ = ({
             <Question question={'Я не нашел ответа на свой вопрос'} answer={<div className={'space-y-3'}>
                 <p>Ответим на любые ваши вопросы:</p>
 
-                <div className={'flex gap-3 '}>
-                    <span className={'flex gap-3 font-semibold items-center text-black'}>
+                <div className={'flex gap-3 max-md:text-sm'}>
+                    <span className={'flex gap-3 max-md:gap-3 font-semibold items-center text-black'}>
                         <img src={"/icons/footer/telegram.svg"}/>
-                        mail@gmail.com
+                        @namesupport
                       </span>
 
-                    <span className={'flex gap-3 font-semibold items-center text-black'}>
+                    <span className={'flex gap-3 max-md:gap-3 font-semibold items-center text-black'}>
                         <img src={"/icons/footer/email.svg"}/>
-                        @namesupport
+                        mail@gmail.com
                     </span>
                 </div>
             </div>}/>
