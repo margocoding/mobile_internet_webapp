@@ -209,6 +209,7 @@ const CheckBalanceModal = () => {
     max-[1024px]:max-w-full
     max-[1024px]:rounded-none
     max-[1024px]:p-5
+    max-[1024px]:pb-20
     `}
             header={
                 <h2 className="text-center ml-16 max-md:mt-16 text-3xl max-md:text-xl font-semibold">
