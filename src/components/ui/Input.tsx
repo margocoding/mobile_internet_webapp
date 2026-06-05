@@ -1,5 +1,5 @@
-import {AnimatePresence, motion} from "framer-motion";
-import {useEffect, useMemo, useRef, useState} from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface InputOption {
     label: string;
@@ -19,14 +19,14 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = ({
-                   leftIcon,
-                   rightIcon,
-                   color = "default",
-                   round = "full",
-                   options = [],
-                   label,
-                   ...props
-               }: Props) => {
+    leftIcon,
+    rightIcon,
+    color = "default",
+    round = "full",
+    options = [],
+    label,
+    ...props
+}: Props) => {
     const [value, setValue] = useState(
         typeof props.value === "string" ? props.value : "",
     );
@@ -47,8 +47,8 @@ const Input = ({
 
         return options.filter(
             (option) =>
-                option.label.toLowerCase().includes(value.toLowerCase()) ||
-                option.description?.toLowerCase().includes(value.toLowerCase()),
+                option.label.toLowerCase().startsWith(value.toLowerCase()) ||
+                option.description?.toLowerCase().startsWith(value.toLowerCase()),
         );
     }, [value, options]);
 
@@ -81,8 +81,8 @@ const Input = ({
     return (
         <motion.div
             ref={wrapperRef}
-            initial={{opacity: 0, y: 10}}
-            animate={{opacity: 1, y: 0}}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{
                 duration: 0.3,
                 ease: [0.16, 1, 0.3, 1],
@@ -135,10 +135,10 @@ const Input = ({
             <AnimatePresence>
                 {showSuggestions && (
                     <motion.div
-                        initial={{opacity: 0, y: -6}}
-                        animate={{opacity: 1, y: 0}}
-                        exit={{opacity: 0, y: -6}}
-                        transition={{duration: 0.15}}
+                        initial={{ opacity: 0, y: -6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -6 }}
+                        transition={{ duration: 0.15 }}
                         className="
               absolute
               top-full
@@ -194,14 +194,14 @@ const Input = ({
                                     )}
 
                                     <div className="flex flex-col min-w-0">
-                    <span className="font-medium text-black truncate">
-                      {option.label}
-                    </span>
+                                        <span className="font-medium text-black truncate">
+                                            {option.label}
+                                        </span>
 
                                         {option.description && (
                                             <span className="text-sm text-gray-500 line-clamp-2">
-                        {option.description}
-                      </span>
+                                                {option.description}
+                                            </span>
                                         )}
                                     </div>
                                 </button>
