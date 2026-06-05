@@ -322,10 +322,10 @@ const TariffPage = () => {
                                                 </div>
                                             )}
 
-                                            <Card
-                                                className={`grid grid-cols-[minmax(90px,120px)_1fr_auto] max-md:grid-cols-3 items-center gap-4 border-2 shadow-none ${selectedTariff?.id === tariff.id
+                                            <div
+                                                className={`grid grid-cols-[minmax(90px,120px)_1fr_auto] rounded-2xl p-4 max-md:grid-cols-3 items-center gap-4 border-2 shadow-none ${selectedTariff?.id === tariff.id
                                                     ? "border-[#F5A623] bg-[#FDF8F5]"
-                                                    : "border-transparent"
+                                                    : "border-transparent bg-white"
                                                     }`}
                                             >
                                                 <div>
@@ -363,7 +363,7 @@ const TariffPage = () => {
                                                 {tariff.discount && (
                                                     <Discount>{tariff.discount}%</Discount>
                                                 )}
-                                            </Card>
+                                            </div>
                                         </div>
                                     ))}
                                 </div>
